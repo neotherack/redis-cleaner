@@ -63,13 +63,13 @@ python redis_cleaner.py --days=4 --size=250 --delete=False
 ```
 
 * Set TTL on the next 2 days for keys older than 2 days which are larger than 500kb 
-**(IMPORTANT! keys older than 2 days to be deleted in the next two days, so key will stay for 4 days in total)**
+**IMPORTANT! keys older than 2 days to be deleted in the next two days, so key will stay for 4 days in total**
 ```
 python redis_expirer.py --days=2 --size=500 --delete=True
 ```
 
-* Test run (won't set any key to expire) for keys older than 5 days larger than 250kb 
-**(IMPORTANT! it will produce CSV output)**
+* Test run (won't set any key to expire) for keys older than 5 days larger than 250kb (note: it will only scan first 1000 keys only)
+**IMPORTANT! it will produce CSV output**
 ```
 python redis_expirer.py --days=5 --size=250 --delete=False --break_on=1000
 ```
