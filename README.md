@@ -1,5 +1,5 @@
 # Redis Cleaner for Alchemy
-**All scripts will try to connect to localhost:6379**
+**All scripts will try to connect to localhost:6379**  
 if that doesn't apply to you just configure or start an SSH port mapping to the correct server or port  
   
 For me SSH redirect and tunnel will look like this:
