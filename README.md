@@ -42,7 +42,7 @@ Options:
 
 ### Dump script
 __**USE CAREFULLY it may overload the redis servers but also set massive "idle time" to zero on keys. If in doubt, ask Alchemy OSS team.**__
-
+```
 python redis_dump_csv.py --help
 Usage: redis_dump_csv.py [OPTIONS]
 
@@ -53,6 +53,7 @@ Options:
                       metadata only if False
   --break_on INTEGER  Apply limit scan key (default 1000)
   --help              Show this message and exit.
+```
 
 ## Parameter hints
 "days" parameter will be used to compare agains "idle time" on the key
