@@ -16,10 +16,12 @@ def expire_keys(days, size, data, break_on):
     size_limit = size_limit_kb * 1024
 
     print(f"Scanning keys older than {expire_days} days, larger than {size_limit_kb} Kb")
+
     if data==True:
         print(f"ID;Size (kb);Idle (days);Key name;Data")
     else:
         print(f"ID;Size (kb);Idle (days);Key name")
+
     r = redis.StrictRedis(host='localhost', port=6379, db=0)
     for i, key in enumerate(r.scan_iter("*")):
         ttl = r.ttl(key)
@@ -28,12 +30,12 @@ def expire_keys(days, size, data, break_on):
             idle = r.object("idletime", key)
             if idle >= expire_seconds:
                key_name = key.decode('utf8')
-               try:
-                   key_data = r.get(key_name)
-               except:
-                   key_data = "No data!"
                dump_count = dump_count + 1
                if data==True:
+                   try:
+                       key_data = r.get(key_name)
+                   except:
+                       key_data = "No data!"
                    print(f"{i};{(size / 1024):.3f};{(idle / 60 / 60 / 24):.3f};{key_name};{key_data}")
                else:
                    print(f"{i};{(size / 1024):.3f};{(idle / 60 / 60 / 24):.3f};{key_name}")

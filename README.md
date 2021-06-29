@@ -40,6 +40,18 @@ Options:
   --help              Show this message and exit.
 ```
 
+### Dump script
+python redis_dump_csv.py --help
+Usage: redis_dump_csv.py [OPTIONS]
+
+Options:
+  --days INTEGER      Idle time limit to filter (default 7)
+  --size INTEGER      Size key limit [Kb] (default 300Kb)
+  --data BOOLEAN      It will dump also data contents if True, Key name and
+                      metadata only if False
+  --break_on INTEGER  Apply limit scan key (default 1000)
+  --help              Show this message and exit.
+
 ## Parameter hints
 "days" parameter will be used to compare agains "idle time" on the key
 this value will get in sync anytime on read or write each key.
@@ -50,6 +62,7 @@ this value will get in sync anytime on read or write each key.
 
 * "break_on", used to scan only the first N keys, just for debug/testing purposes. To perform a full scan use a huge value such as 1000000.
 
+* "data", used to include key internal data or not in the CSV file **(CAREFUL!!! if data=True, idle time will be set back to 0 because of the data read operation, this is a redis feature)***
 
 ## Example commands
 * Delete keys older than 7 days and larger than 650kb
@@ -72,4 +85,14 @@ python redis_expirer.py --days=2 --size=500 --delete=True
 **IMPORTANT! it will produce CSV output**
 ```
 python redis_expirer.py --days=5 --size=250 --delete=False --break_on=1000
+```
+
+* Test run, dump keys older than 3 days of any sizes, because size > 0. It won't include key data. The operation will stop after iteration 220th.
+```
+python redis_dump_csv.py --days=3 --size=0 --data=False --break_on=220
+```
+
+* Dump keys older than 7 days, size > 100kb. It WILL include key data (thus, idle time will be reset to zero by redis server)
+```
+python redis_dump_csv.py --days=7 --size=100 --data=True --break_on=1000000
 ```
