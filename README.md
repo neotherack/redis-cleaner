@@ -1,7 +1,7 @@
 # Redis Cleaner for Alchemy
 **All scripts will try to connect to localhost:6379**
-if that doesn't apply to you just configure or start an SSH port mapping to the correct server or port
-
+if that doesn't apply to you just configure or start an SSH port mapping to the correct server or port  
+  
 For me SSH redirect and tunnel will look like this:
 `ssh -f -N my_user@ssh_tunnel_server_hostname -L port_left:redis_server_hostname:port_right`
 
@@ -66,16 +66,14 @@ Options:
 ```
 
 ## Parameter hints
-"days" parameter will be used to compare agains "idle time" on the key
+"days" parameter will be used to compare agains "idle time" on the key  
 this value will get in sync anytime on read or write each key.
 
 * "size" (kb) will be used to filter keys using more than that memory space
-
 * "delete" / "expire": if True, it will apply changes, if not, it will just display info with no changes on the system
-
 * "break_on", used to scan only the first N keys, just for debug/testing purposes. To perform a full scan use a huge value such as 1000000.
-
-* "data", used to include key internal data or not in the CSV file **(CAREFUL!!! if data=True, idle time will be set back to 0 because of the data read operation, this is a redis feature)**
+* "data", used to include key internal data or not in the CSV file  
+**(CAREFUL!!! if data=True, idle time will be set back to 0 because of the data read operation, this is a redis feature)**
 
 ## Example commands
 * Delete keys older than 7 days and larger than 650kb
@@ -88,13 +86,13 @@ python redis_cleaner.py --days=7 --size=650 --delete=True
 python redis_cleaner.py --days=4 --size=250 --delete=False
 ```
 
-* Set TTL on the next 2 days for keys older than 2 days which are larger than 500kb 
+* Set TTL on the next 2 days for keys older than 2 days which are larger than 500kb  
 **IMPORTANT! keys older than 2 days to be deleted in the next two days, so key will stay for 4 days in total**
 ```
 python redis_expirer.py --days=2 --size=500 --delete=True
 ```
 
-* Test run (won't set any key to expire) for keys older than 5 days larger than 250kb (note: it will only scan first 1000 keys only)
+* Test run (won't set any key to expire) for keys older than 5 days larger than 250kb (note: it will only scan first 1000 keys only)  
 **IMPORTANT! it will produce CSV output**
 ```
 python redis_expirer.py --days=5 --size=250 --delete=False --break_on=1000
