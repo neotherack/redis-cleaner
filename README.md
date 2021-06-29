@@ -1,4 +1,14 @@
 # Redis Cleaner for Alchemy
+**All scripts will try to connect to localhost:6379**
+if that doesn't apply to you just configure or start an SSH port mapping to the correct server or port
+
+For me SSH redirect and tunnel will look like this:
+`ssh -f -N my_user@ssh_tunnel_server_hostname -L port_left:redis_server_hostname:port_right`
+
+usually:
+* ssh_tunnel_server_hostname will be the same as redis_server_hostname
+* also port_left will be 6379 but also port_right equals 6379
+
 
 ## Installation
 1. Clone repo
@@ -65,7 +75,7 @@ this value will get in sync anytime on read or write each key.
 
 * "break_on", used to scan only the first N keys, just for debug/testing purposes. To perform a full scan use a huge value such as 1000000.
 
-* "data", used to include key internal data or not in the CSV file **(CAREFUL!!! if data=True, idle time will be set back to 0 because of the data read operation, this is a redis feature)***
+* "data", used to include key internal data or not in the CSV file **(CAREFUL!!! if data=True, idle time will be set back to 0 because of the data read operation, this is a redis feature)**
 
 ## Example commands
 * Delete keys older than 7 days and larger than 650kb
