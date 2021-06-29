@@ -18,7 +18,7 @@ python -m venv venv
 pip install -r requirements.txt
 source venv/bin/activate
 ```
-2. Run cleaner or expirer scripts
+3. Run cleaner or expirer scripts
 (see examples)
 
 
