@@ -41,6 +41,8 @@ Options:
 ```
 
 ### Dump script
+__**USE CAREFULLY it may overload the redis servers but also set massive "idle time" to zero on keys. If in doubt, ask Alchemy OSS team.**__
+
 python redis_dump_csv.py --help
 Usage: redis_dump_csv.py [OPTIONS]
 
@@ -95,4 +97,9 @@ python redis_dump_csv.py --days=3 --size=0 --data=False --break_on=220
 * Dump keys older than 7 days, size > 100kb. It WILL include key data (thus, idle time will be reset to zero by redis server)
 ```
 python redis_dump_csv.py --days=7 --size=100 --data=True --break_on=1000000
+```
+
+* Full redis dump to file (run with care, it may overload redis server!!!)
+```
+python redis_dump_csv.py --days=0 --size=0 --data=False --break_on=10000000 > /tmp/alchemy_pro_redis_full_dump.csv
 ```
