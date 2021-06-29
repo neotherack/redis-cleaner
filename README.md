@@ -52,24 +52,24 @@ this value will get in sync anytime on read or write each key.
 
 
 ## Example commands
-Delete keys older than 7 days and larger than 650kb
+* Delete keys older than 7 days and larger than 650kb
 ```
 python redis_cleaner.py --days=7 --size=650 --delete=True
 ```
 
-Report (not delete applied) keys older than 4 days and larger than 250kb
+* Report (not delete applied) keys older than 4 days and larger than 250kb
 ```
 python redis_cleaner.py --days=4 --size=250 --delete=False
 ```
 
-Set TTL on the next 2 days for keys older than 2 days which are larger than 500kb 
-(IMPORTANT! keys older than 2 days to be deleted in the next two days, so key will stay for 4 days in total)
+* Set TTL on the next 2 days for keys older than 2 days which are larger than 500kb 
+**(IMPORTANT! keys older than 2 days to be deleted in the next two days, so key will stay for 4 days in total)**
 ```
 python redis_expirer.py --days=2 --size=500 --delete=True
 ```
 
-Test run (won't set any key to expire) for keys older than 5 days larger than 250kb 
-(IMPORTANT! it will produce CSV output)
+* Test run (won't set any key to expire) for keys older than 5 days larger than 250kb 
+**(IMPORTANT! it will produce CSV output)**
 ```
 python redis_expirer.py --days=5 --size=250 --delete=False --break_on=1000
 ```
