@@ -20,13 +20,15 @@ def clean(days, size, delete):
         mem = r.memory_usage(key)
         mem_kb = mem / 1024
         if idle >= drop_limit_seconds and mem_kb>=size:
-            if delete and delete==True:
-                print(f"Dropped key: idle:{idle_days:.3f} mem:{mem_kb:.2f} - {key.decode('utf8')}")
+            if delete==True:
+                print(f"Dropped key! idle:{idle_days:.3f} mem:{mem_kb:.2f} - {key.decode('utf8')}")
                 dropped=dropped+1
                 mem_saved = mem_saved + mem_kb
                 r.delete(key)
             else:
-                print(f"To drop key: {key}")
+                print(f"To drop key. idle:{idle_days:.3f} mem:{mem_kb:.2f} - {key.decode('utf8')}")
+        #else:
+            #print(f"DEBUG: NOT MATCHING key, idle:{idle_days:.3f} mem:{mem_kb:.2f} - {key.decode('utf8')}")
 
     print(f"Process completed, scanned {scanned} keys, dropped {dropped}. Saved {mem_saved} Kb")
 
